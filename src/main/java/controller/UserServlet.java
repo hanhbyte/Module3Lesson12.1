@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
 
-@WebServlet(name = "UserServlet", value = "/UserServlet")
+@WebServlet(name = "UserServlet", value = "/users")
 public class UserServlet extends HttpServlet {
 
   public static final long serialVersionUID = 1L;
@@ -89,7 +89,8 @@ public class UserServlet extends HttpServlet {
   private void showEditForm(HttpServletRequest request, HttpServletResponse response)
       throws SQLException, ServletException, IOException {
     int id = Integer.parseInt(request.getParameter("id"));
-    User existingUser = iUserDAO.selectUser(id);
+//    User existingUser = iUserDAO.selectUser(id);
+    User existingUser = iUserDAO.getUserById(id);
     RequestDispatcher dispatcher = request.getRequestDispatcher("user/edit.jsp");
     request.setAttribute("user", existingUser);
     dispatcher.forward(request, response);
@@ -101,7 +102,8 @@ public class UserServlet extends HttpServlet {
     String email = request.getParameter("email");
     String country = request.getParameter("country");
     User newUser = new User(name, email, country);
-    iUserDAO.insertUser(newUser);
+//    iUserDAO.insertUser(newUser);
+    iUserDAO.insertUserStore(newUser);
     RequestDispatcher dispatcher = request.getRequestDispatcher("user/");
     dispatcher.forward(request, response);
   }
