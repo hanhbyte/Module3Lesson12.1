@@ -63,6 +63,9 @@ public class UserServlet extends HttpServlet {
         case "delete":
           deleteUser(request, response);
           break;
+        case "permision":
+          adduserPermision(request, response);
+          break;
         default:
           listUser(request, response);
           break;
@@ -70,6 +73,12 @@ public class UserServlet extends HttpServlet {
     } catch (SQLException e) {
       throw new ServletException(e);
     }
+  }
+
+  private void adduserPermision(HttpServletRequest request, HttpServletResponse response) {
+    User user = new User("hanh", "hanh.nguyen@gmail.com.vn", "vn");
+    int[] permision = {1, 2, 4};
+    iUserDAO.addUserTransaction(user, permision);
   }
 
   private void listUser(HttpServletRequest request, HttpServletResponse response)
